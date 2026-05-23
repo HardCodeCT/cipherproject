@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="cipherlogo.png" />
+  <title>CiPHER — Real-Time Chess Training</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Scanline overlay -->
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <!-- Background grid -->
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <span class="nav-logo"><img src="cipherlogo.png" alt="CiPHER logo" class="nav-logo-img" />Ci<span class="accent">PH</span>ER</span>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#download">Download</a></li>
+        <li><a href="#extension">Extension</a></li>
+      </ul>
+      <a href="#download" class="nav-cta">Get Cipher</a>
+    </div>
+  </nav>
+
+
+  <!-- ABOUT / STORY -->
+  <section class="section" id="about">
+    <div class="container">
+      <h2 class="section-title">Avoidance Doesn't<br/><span class="accent">Make You Better</span></h2>
+
+      <div class="story-grid">
+        <div class="story-text">
+          <p>
+            Every chess player has positions they dread. For me, it was the Sicilian. I'd avoid it, play something passive, never actually learn.
+          </p>
+          <p>
+            What I needed was to face it repeatedly with real-time feedback not post-game analysis where I'd already internalized the wrong move, but <strong>in the moment</strong>, seeing the engine's suggested line while I'm still feeling the pressure.
+          </p>
+          <p>
+            That's deliberate practice. That's exposure therapy.
+          </p>
+          <div class="story-disclaimer">
+            <span class="disclaimer-icon">⚠</span>
+            This tool is designed for unrated and casual training games. Use during rated play violates fair play policies.
+          </div>
+        </div>
+        <div class="story-quote-block">
+          <blockquote>
+            "Practice the positions<br/>you're scared of <br/><em>in real time.</em>"
+          </blockquote>
+          <div class="quote-attr">— The CiPHER philosophy</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section section-alt" id="features">
+    <div class="container">
+      <h2 class="section-title">Built for<br/><span class="accent">Deliberate Practice</span></h2>
+
+      <div class="features-grid">
+
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Real-Time Engine Overlay</h3>
+          <p>See the engine's suggested line as you're deciding — not after the damage is done. Stay in the pressure zone and learn from it.</p>
+        </div>
+
+        <div class="feature-card feature-card--highlight">
+          <div class="feature-icon">🎯</div>
+          <h3>Position Targeting</h3>
+          <p>Select any feared opening or middlegame structure. CiPHER steers you into it repeatedly until the position becomes comfortable.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🧠</div>
+          <h3>Exposure Training Mode</h3>
+          <p>Systematic desensitisation to positions that spike your anxiety. Face them enough times and fear transforms into pattern recognition.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>In-Game Feedback</h3>
+          <p>Immediate evaluation of every candidate move. Understand why a line fails while your intuition still remembers choosing it.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🖥️</div>
+          <h3>Cross-Platform</h3>
+          <p>Desktop apps for Windows, macOS and Linux. Native Android app. Browser extension for playing directly on chess sites.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>Training-Only Mode</h3>
+          <p>Cipher is designed to comply with fair-use policy and is not intended for rated or competitive play. It functions strictly as a training tool and is architecturally built with ethical constraints, not as a cheat engine.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD -->
+  <section class="section" id="download">
+    <div class="container">
+      <h2 class="section-title">Choose Your<br/><span class="accent">Platform</span></h2>
+
+      <div class="platform-grid">
+
+        <!-- Windows -->
+        <div class="platform-card" data-platform="windows">
+          <div class="platform-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
+          </div>
+          <div class="platform-info">
+            <h3>Windows</h3>
+            <p class="platform-detail">Windows 10 / 11 · x64</p>
+          </div>
+          <a href="#" class="btn-download" onclick="handleDownload(event,'windows')">
+            <span>Download .exe</span>
+            <span class="dl-arrow">↓</span>
+          </a>
+        </div>
+
+        <!-- macOS -->
+        <div class="platform-card" data-platform="mac">
+          <div class="platform-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.54 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701z"/></svg>
+          </div>
+          <div class="platform-info">
+            <h3>macOS</h3>
+            <p class="platform-detail">macOS 12+ · Apple Silicon &amp; Intel</p>
+          </div>
+          <a href="#" class="btn-download" onclick="handleDownload(event,'mac')">
+            <span>Download .dmg</span>
+            <span class="dl-arrow">↓</span>
+          </a>
+        </div>
+
+        <!-- Linux -->
+        <div class="platform-card" data-platform="linux">
+          <div class="platform-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.504 0c-.155 0-.315.008-.48.021C7.576.336 3.59 2.541 2.65 5.304c-.46 1.357-.439 2.531-.084 3.534.379 1.063 1.128 1.884 1.99 2.483.244.172.477.316.68.422.26.135.493.225.676.279.183.054.31.07.317.076.007.006-.043.037-.037.034.127-.068.227-.128.324-.184.354-.207.764-.509 1.205-.906a14.52 14.52 0 0 0 1.353-1.498c.45-.588.87-1.226 1.214-1.87.176-.323.324-.646.44-.956C11.285 5.63 11.41 4.8 11.41 4.8H11c.41.01.824.004 1.229 0h.047c-.003 0-.006.005-.009.005-.004.001-.005-.007-.008-.006a2.504 2.504 0 0 1 .312-.006c.026.001.059.003.076.005.017.003.023.01.027.01.003 0 .002-.006.003-.007.146.02.28.044.394.07.116.026.213.058.3.095.088.037.172.082.258.138.086.057.175.127.268.215.19.18.393.433.594.762.2.33.395.731.571 1.189.177.46.333.976.457 1.527.124.554.215 1.14.258 1.738.02.3.031.603.031.903 0 .3-.01.6-.03.897-.044.596-.135 1.178-.259 1.73-.124.551-.28 1.064-.456 1.523-.175.458-.369.855-.57 1.185-.202.332-.403.582-.592.76-.09.09-.18.16-.265.215-.087.055-.172.1-.257.136-.087.037-.184.07-.301.095-.115.026-.25.05-.395.07-.003.001-.002.007-.003.007-.004 0-.01-.007-.027-.01-.017-.002-.05-.004-.076-.005a2.49 2.49 0 0 1-.312-.006c.003.001.004-.007.008-.006l.009.005H11.41c-.413-.004-.827-.01-1.237 0H10c0 0-.125-.83-.462-1.89-.118-.312-.268-.638-.445-.963-.345-.648-.767-1.29-1.218-1.878a14.5 14.5 0 0 0-1.352-1.495c-.442-.398-.853-.7-1.207-.907-.097-.057-.196-.117-.323-.185-.006-.003.044.028.037.034-.007.006-.134.022-.317.076-.183.054-.416.144-.676.279-.203.106-.436.25-.68.422-.863.599-1.61 1.42-1.99 2.483-.354 1.003-.376 2.177.084 3.534C3.59 21.459 7.576 23.664 12.024 23.98c.165.013.325.02.48.02 4.448 0 8.16-2.166 9.197-5.163.46-1.357.439-2.531.084-3.534-.379-1.063-1.128-1.884-1.99-2.483-.244-.172-.477-.316-.68-.422-.26-.135-.493-.225-.676-.279-.183-.054-.31-.07-.317-.076-.007-.006.043-.037.037-.034-.127.068-.227.128-.324.184-.354.207-.764.509-1.205.906a14.52 14.52 0 0 0-1.353 1.498c-.45.588-.87 1.226-1.214 1.87-.176.323-.324.646-.44.956-.337 1.059-.462 1.89-.462 1.89h-.41c.41-.01.824-.004 1.229 0z"/></svg>
+          </div>
+          <div class="platform-info">
+            <h3>Linux</h3>
+            <p class="platform-detail">Ubuntu / Debian · AppImage</p>
+          </div>
+          <a href="#" class="btn-download" onclick="handleDownload(event,'linux')">
+            <span>Download .AppImage</span>
+            <span class="dl-arrow">↓</span>
+          </a>
+        </div>
+
+        <!-- Android -->
+        <div class="platform-card platform-card--android" data-platform="android">
+          <div class="platform-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 15.341a.747.747 0 0 1-.75.75.747.747 0 0 1-.75-.75V9.75a.75.75 0 0 1 .75-.75.75.75 0 0 1 .75.75v5.591zm-10.046 0a.747.747 0 0 1-.75.75.747.747 0 0 1-.75-.75V9.75a.75.75 0 0 1 .75-.75.75.75 0 0 1 .75.75v5.591zm1.705-9.75l1.32-2.364a.274.274 0 0 0-.1-.375.273.273 0 0 0-.374.099L8.69 5.31A7.483 7.483 0 0 0 5.998 7.5h12.004a7.483 7.483 0 0 0-2.692-2.19l-1.336-2.4a.274.274 0 0 0-.375-.1.273.273 0 0 0-.099.375l1.32 2.365a.13.13 0 0 1-.006.041zM10.5 5.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm4.5 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zM6 18a1.5 1.5 0 0 0 1.5 1.5h.75V21a.75.75 0 0 0 1.5 0v-1.5h1.5V21a.75.75 0 0 0 1.5 0v-1.5h.75A1.5 1.5 0 0 0 15 18v-9H6v9zm12-.75V9.75a1.5 1.5 0 0 0-1.5-1.5 1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5 1.5 1.5 0 0 0 1.5-1.5zM7.5 9.75a1.5 1.5 0 0 0-1.5-1.5 1.5 1.5 0 0 0-1.5 1.5v7.5A1.5 1.5 0 0 0 6 18.75a1.5 1.5 0 0 0 1.5-1.5V9.75z"/></svg>
+          </div>
+          <div class="platform-info">
+            <h3>Android</h3>
+            <p class="platform-detail">Android 8.0+ · APK Direct</p>
+          </div>
+          <a href="#" class="btn-download btn-download--android" onclick="handleDownload(event,'android')">
+            <span>Download .apk</span>
+            <span class="dl-arrow">↓</span>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Android note -->
+      <div class="android-note">
+        <span class="android-note-icon">ℹ</span>
+        <div>
+          <strong>Android users:</strong> Enable "Install from Unknown Sources" in Settings &gt; Security before installing the APK.
+          <br/>Looking for the Play Store release? <a href="#" class="inline-link">Join the waitlist →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BROWSER EXTENSION -->
+  <section class="section section-alt" id="extension">
+    <div class="container">
+      <h2 class="section-title">Play Directly in<br/><span class="accent">Your Browser</span></h2>
+
+      <p class="ext-intro">
+        The CiPHER browser extension overlays real-time engine lines directly onto your favourite chess site — no switching windows, no losing position context.
+      </p>
+
+      <div class="ext-grid">
+
+        <div class="ext-card">
+          <div class="ext-browser-icon chrome-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="12" cy="12" r="4" fill="#4FC3F7"/>
+              <path d="M12 8h8.66A10 10 0 1 0 12 22V8z" fill="none" stroke="#4FC3F7" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <h3>Chrome / Chromium</h3>
+          <p>Works on Chrome, Brave, Edge, Opera and all Chromium-based browsers.</p>
+          <a href="#" class="btn-download" onclick="handleDownload(event,'chrome')">
+            <span>Add to Chrome</span>
+            <span class="dl-arrow">↓</span>
+          </a>
+        </div>
+
+        <div class="ext-card ext-card--featured">
+          <div class="ext-featured-label">Recommended</div>
+          <div class="ext-browser-icon firefox-icon">
+            <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#4FC3F7" stroke-width="1.5"/><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5z" fill="#4FC3F7"/></svg>
+          </div>
+          <h3>Firefox</h3>
+          <p>Full feature support with enhanced privacy. Our recommended desktop browser for CiPHER.</p>
+          <a href="#" class="btn-download btn-download--featured" onclick="handleDownload(event,'firefox')">
+            <span>Add to Firefox</span>
+            <span class="dl-arrow">↓</span>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Android browser recommendation -->
+      <div class="android-browser-section">
+        <h3 class="android-browser-title">Recommended Mobile Browser</h3>
+
+        <div class="android-browser-card">
+          <div class="android-browser-badge">Best for CiPHER on Android</div>
+          <div class="android-browser-content">
+            <div class="kiwi-icon" aria-label="Kiwi Browser">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="24" cy="24" r="22" stroke="#4FC3F7" stroke-width="2" fill="none"/>
+                <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="22" fill="#4FC3F7" font-family="serif">K</text>
+              </svg>
+            </div>
+            <div>
+              <h4>Kiwi Browser</h4>
+              <p>The only Android browser that supports <strong>desktop Chrome extensions</strong>. Install the CiPHER Chrome extension directly in Kiwi to get real-time engine overlays while playing on mobile chess sites.</p>
+              <div class="kiwi-steps">
+                <span class="kiwi-step">1. Download Kiwi Browser from Play Store</span>
+                <span class="kiwi-step">2. Open the CiPHER Chrome Extension link in Kiwi</span>
+                <span class="kiwi-step">3. Tap "Add Extension" and start training</span>
+              </div>
+              <a href="https://play.google.com/store/apps/details?id=com.kiwibrowser.browser" target="_blank" rel="noopener" class="btn-download btn-download--android" style="display:inline-flex;margin-top:1rem;">
+                <span>Get Kiwi on Play Store</span>
+                <span class="dl-arrow">↗</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DISCLAIMER FOOTER -->
+  <section class="disclaimer-banner">
+    <div class="container">
+      <div class="disclaimer-inner">
+        <span class="disclaimer-icon-lg">⚠</span>
+        <div>
+          <strong>Fair Play Notice</strong>
+          <p>CiPHER is designed exclusively for unrated and casual training games. Using CiPHER during rated play on any platform constitutes a violation of fair play policies. We encourage ethical improvement — better through practice, not assistance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="nav-logo">Ci<span class="accent">PH</span>ER</span>
+        <p>Real-Time Chess Training Intelligence</p>
+      </div>
+      <div class="footer-links">
+        <a href="#about">About</a>
+        <a href="#features">Features</a>
+        <a href="#download">Download</a>
+        <a href="#extension">Extension</a>
+      </div>
+      <div class="footer-copy">
+        © 2025 CiPHER. All rights reserved. Training tool only.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast">
+    <span class="toast-icon">⏳</span>
+    <span id="toastMsg">Download starting…</span>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
