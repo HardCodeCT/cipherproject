@@ -188,7 +188,7 @@ img { max-width: 100%; display: block; }
 /* ── Hero ── */
 .hero {
   position: relative;
-  margin-top: 64px;
+  margin-top: 5rem;
   display: flex;
   align-items: center;
   justify-content: center;
