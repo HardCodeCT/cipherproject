@@ -918,7 +918,7 @@ blockquote em { color: var(--cyan); font-style: normal; }
 .quetta-recommend-card { display: flex; align-items: center; gap: 1.25rem; background: #1a201a; border-radius: var(--radius); padding: 1.25rem 1.5rem; margin-top: 1rem; position: relative; }
 .quetta-logo { width: 52px; height: 52px; flex-shrink: 0; }
 .quetta-logo svg { width: 100%; height: 100%; }
-.quetta-recommend-title { font-family: var(--font-main); font-weight: 700; font-size: 0.98rem; color: #4ade80; margin-bottom: 0.2rem; }
+.quetta-recommend-title { font-family: var(--font-main); font-weight: 700; font-size: 0.98rem; color: #ff8a00;; margin-bottom: 0.2rem; }
 .quetta-recommend-sub { font-size: 0.8rem; color: var(--muted-card); }
 .quetta-recommend-badge { margin-left: auto; flex-shrink: 0; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #0f0f0f; background: #4ade80; padding: 0.25rem 0.75rem; border-radius: 20px; }
 .quetta-name { color: #4ade80; }
