@@ -1073,6 +1073,7 @@ blockquote em { color: var(--cyan); font-style: normal; }
 @media (min-width: 1025px) {
   #tab-android .install-shot-frame {
     width: 50%;
+    max-height: 300px;
     margin-left: auto;
     margin-right: auto;
     overflow: hidden;
@@ -1112,4 +1113,121 @@ blockquote em { color: var(--cyan); font-style: normal; }
 
 .video-section .screenshot-card--desktop {
   max-width: none;
+}
+
+/* ═══════════════════════════════════════════════════
+   LIGHTBOX MODAL for Android installation screenshots
+   ═══════════════════════════════════════════════════ */
+
+.lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  padding: 5vh 5vw; /* padding on all sides */
+  box-sizing: border-box;
+}
+
+.lightbox-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: lightboxFadeIn 0.3s ease;
+}
+
+.lightbox-content img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  background: #1a1a1a; /* fallback */
+  display: block;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  line-height: 1;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 300;
+  backdrop-filter: blur(4px);
+}
+
+.lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.lightbox-close:active {
+  transform: scale(0.9);
+}
+
+@keyframes lightboxFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Optional: add a subtle zoom indicator on Android screenshots */
+#tab-android .install-shot-frame {
+  cursor: pointer;
+  transition: box-shadow 0.25s, transform 0.25s;
+}
+
+#tab-android .install-shot-frame:hover {
+  box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.3), 0 8px 30px rgba(0, 0, 0, 0.2);
+  transform: scale(1.01);
+}
+
+/* Make sure the modal works well on small screens */
+@media (max-width: 480px) {
+  .lightbox-overlay {
+    padding: 3vh 3vw;
+  }
+  .lightbox-close {
+    top: 10px;
+    right: 12px;
+    width: 40px;
+    height: 40px;
+    font-size: 1.6rem;
+  }
 }
