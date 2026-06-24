@@ -1,18 +1,173 @@
-javascript
-
 /* ============================================
    CiPHER — script.js
    ============================================ */
 
-/* ── Navbar scroll effect ── */
+/* ══════════════════════════════════════════
+   PARTICLE CANVAS — floating chess pieces
+   ══════════════════════════════════════════ */
+(function initParticles() {
+  const canvas = document.getElementById('particleCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  const PIECES = ['♟','♞','♝','♜','♛','♔'];
+  let particles = [];
+  let W, H;
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+
+  function randomPiece() {
+    return {
+      x: Math.random() * W,
+      y: Math.random() * H,
+      char: PIECES[Math.floor(Math.random() * PIECES.length)],
+      size: 14 + Math.random() * 22,
+      opacity: 0.04 + Math.random() * 0.08,
+      vx: (Math.random() - 0.5) * 0.25,
+      vy: -0.12 - Math.random() * 0.18,
+      rotation: Math.random() * Math.PI * 2,
+      rotSpeed: (Math.random() - 0.5) * 0.005,
+      life: 0,
+      maxLife: 280 + Math.random() * 220,
+    };
+  }
+
+  for (let i = 0; i < 28; i++) {
+    const p = randomPiece();
+    p.life = Math.floor(Math.random() * p.maxLife); // stagger
+    particles.push(p);
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    particles.forEach((p, i) => {
+      // Fade in / fade out
+      const t = p.life / p.maxLife;
+      const fade = t < 0.12 ? t / 0.12 : t > 0.85 ? (1 - t) / 0.15 : 1;
+
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rotation);
+      ctx.globalAlpha = p.opacity * fade;
+      ctx.font = `${p.size}px serif`;
+      ctx.fillStyle = '#1a1a1a';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(p.char, 0, 0);
+      ctx.restore();
+
+      p.x += p.vx;
+      p.y += p.vy;
+      p.rotation += p.rotSpeed;
+      p.life++;
+
+      if (p.life >= p.maxLife) {
+        particles[i] = randomPiece();
+      }
+    });
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+
+/* ══════════════════════════════════════════
+   SMOOTH SCROLL — override all anchor links
+   ══════════════════════════════════════════ */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (!target) return;
+    e.preventDefault();
+    const offset = 72; // navbar height
+    const top = target.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top, behavior: 'smooth' });
+  });
+});
+
+
+/* ══════════════════════════════════════════
+   NAVBAR SCROLL EFFECT
+   ══════════════════════════════════════════ */
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 40);
 }, { passive: true });
 
-/* ── Toast notification ── */
-const toast     = document.getElementById('toast');
-const toastMsg  = document.getElementById('toastMsg');
+
+/* ══════════════════════════════════════════
+   SCROLL-TO-TOP BUTTON
+   Fades in after scrolling 400px
+   ══════════════════════════════════════════ */
+const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+function updateScrollTopBtn() {
+  if (window.scrollY > 400) {
+    scrollTopBtn.classList.add('visible');
+  } else {
+    scrollTopBtn.classList.remove('visible');
+  }
+}
+
+window.addEventListener('scroll', updateScrollTopBtn, { passive: true });
+
+scrollTopBtn.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+
+/* ══════════════════════════════════════════
+   BOTTOM NAVIGATION
+   Fades in after user scrolls past hero
+   Active state tracks current section
+   ══════════════════════════════════════════ */
+const bottomNav     = document.getElementById('bottomNav');
+const bottomNavItems = document.querySelectorAll('.bottom-nav-item');
+const sections      = document.querySelectorAll('section[id], .hero[id]');
+
+// Show bottom nav after hero passes
+function updateBottomNav() {
+  const heroEl = document.getElementById('hero');
+  if (!heroEl) return;
+  const heroBottom = heroEl.getBoundingClientRect().bottom;
+  if (heroBottom < 0) {
+    bottomNav.classList.add('visible');
+  } else {
+    bottomNav.classList.remove('visible');
+  }
+}
+
+// Active section highlight
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.getAttribute('id');
+      bottomNavItems.forEach(item => {
+        const isActive = item.getAttribute('data-section') === id;
+        item.classList.toggle('active', isActive);
+      });
+    }
+  });
+}, { rootMargin: '-45% 0px -50% 0px' });
+
+sections.forEach(s => sectionObserver.observe(s));
+
+window.addEventListener('scroll', updateBottomNav, { passive: true });
+updateBottomNav(); // run on load
+
+
+/* ══════════════════════════════════════════
+   TOAST NOTIFICATION
+   ══════════════════════════════════════════ */
+const toast    = document.getElementById('toast');
+const toastMsg = document.getElementById('toastMsg');
 let   toastTimer;
 
 function showToast(msg, duration = 3000) {
@@ -22,7 +177,10 @@ function showToast(msg, duration = 3000) {
   toastTimer = setTimeout(() => toast.classList.remove('show'), duration);
 }
 
-/* ── Download handler ── */
+
+/* ══════════════════════════════════════════
+   DOWNLOAD HANDLER
+   ══════════════════════════════════════════ */
 const platformMessages = {
   windows : 'Windows installer download starting…',
   mac     : 'macOS disk image download starting…',
@@ -45,174 +203,66 @@ function handleDownload(event, platform) {
   event.preventDefault();
   const url = downloadURLs[platform];
   showToast(platformMessages[platform] || 'Download starting…');
-
   if (url && url !== '#') {
-    setTimeout(() => {
-      window.open(url, '_blank', 'noopener,noreferrer');
-    }, 400);
+    setTimeout(() => window.open(url, '_blank', 'noopener,noreferrer'), 400);
   }
 }
 
-/* ── Smooth scroll for all anchor links ── */
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    const targetId = this.getAttribute('href');
-    if (targetId === '#') return;
-    const target = document.querySelector(targetId);
-    if (!target) return;
-    e.preventDefault();
-    const offset = 72; // navbar height + buffer
-    const top = target.getBoundingClientRect().top + window.scrollY - offset;
-    window.scrollTo({ top, behavior: 'smooth' });
-  });
-});
 
-/* ── Back to top button ── */
-const backToTopBtn = document.getElementById('backToTop');
+/* ══════════════════════════════════════════
+   WORD FLOAT ANIMATION
+   Wraps each word in section titles and
+   animates them in with staggered delays
+   ══════════════════════════════════════════ */
+function initWordAnimations() {
+  const titleEls = document.querySelectorAll('.section-title, .hero-title');
 
-function updateBackToTop() {
-  if (window.scrollY > 350) {
-    backToTopBtn.classList.add('visible');
-  } else {
-    backToTopBtn.classList.remove('visible');
-  }
-}
-
-backToTopBtn.addEventListener('click', () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-window.addEventListener('scroll', updateBackToTop, { passive: true });
-
-/* ── Bottom navigation — show/hide with fade ── */
-const bottomNav = document.getElementById('bottomNav');
-const bottomNavLinks = document.querySelectorAll('.bottom-nav-link');
-let bottomNavVisible = false;
-
-function updateBottomNav() {
-  const shouldShow = window.scrollY > 200;
-  if (shouldShow !== bottomNavVisible) {
-    bottomNavVisible = shouldShow;
-    if (shouldShow) {
-      bottomNav.classList.add('visible');
-    } else {
-      bottomNav.classList.remove('visible');
-    }
-  }
-}
-
-window.addEventListener('scroll', updateBottomNav, { passive: true });
-
-/* ── Bottom nav active link highlight ── */
-const sections = document.querySelectorAll('section[id]');
-
-const bottomNavObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const id = entry.target.getAttribute('id');
-      bottomNavLinks.forEach(link => {
-        const href = link.getAttribute('href');
-        if (href === `#${id}`) {
-          link.classList.add('active');
-        } else {
-          link.classList.remove('active');
-        }
-      });
-    }
-  });
-}, { rootMargin: '-40% 0px -55% 0px' });
-
-sections.forEach(s => bottomNavObserver.observe(s));
-
-/* ── Top nav active link highlight ── */
-const navAnchors = document.querySelectorAll('.nav-links a');
-
-const sectionObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const id = entry.target.getAttribute('id');
-      navAnchors.forEach(a => {
-        a.style.color = a.getAttribute('href') === `#${id}` ? 'var(--cyan)' : '';
-      });
-    }
-  });
-}, { rootMargin: '-40% 0px -55% 0px' });
-
-sections.forEach(s => sectionObserver.observe(s));
-
-/* ── Word-by-word reveal on section titles ── */
-function prepareWordReveal() {
-  const titles = document.querySelectorAll('.reveal-words');
-  titles.forEach(title => {
-    // Walk child nodes and wrap words in each text node
-    const nodes = Array.from(title.childNodes);
-    title.innerHTML = '';
-
-    nodes.forEach(node => {
-      if (node.nodeType === Node.TEXT_NODE) {
-        const words = node.textContent.split(/(\s+)/);
-        words.forEach(word => {
-          if (word.trim() === '') {
-            title.appendChild(document.createTextNode(word));
-          } else {
-            const span = document.createElement('span');
-            span.className = 'word-reveal-span';
-            span.textContent = word;
-            title.appendChild(span);
-          }
-        });
-      } else {
-        // element node (e.g. <span class="accent">)
-        const el = node;
-        if (el.textContent) {
-          el.classList.add('word-reveal-span');
-        }
-        title.appendChild(el);
-      }
-    });
-  });
-}
-
-prepareWordReveal();
-
-const wordRevealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const spans = entry.target.querySelectorAll('.word-reveal-span');
-      spans.forEach((span, i) => {
-        setTimeout(() => {
-          span.classList.add('revealed');
-        }, i * 90);
-      });
-      wordRevealObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.2, rootMargin: '0px 0px -40px 0px' });
-
-document.querySelectorAll('.reveal-words').forEach(el => {
-  wordRevealObserver.observe(el);
-});
-
-/* ── Coach badge label pulse-in ── */
-const coachBadge = document.querySelector('.section-coach-badge');
-if (coachBadge) {
-  coachBadge.style.opacity = '0';
-  coachBadge.style.transform = 'translateX(-12px)';
-  coachBadge.style.transition = 'opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s';
-
-  const badgeObserver = new IntersectionObserver((entries) => {
+  const wordObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        coachBadge.style.opacity = '1';
-        coachBadge.style.transform = 'translateX(0)';
-        badgeObserver.unobserve(coachBadge);
-      }
-    });
-  }, { threshold: 0.5 });
-  badgeObserver.observe(coachBadge);
-}
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      if (el.dataset.wordsAnimated) return;
+      el.dataset.wordsAnimated = '1';
 
-/* ── Scroll-reveal animation for cards ── */
+      // Walk text nodes and wrap words, preserve HTML children
+      function wrapWordsInNode(node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+          const words = node.textContent.split(/(\s+)/);
+          const frag = document.createDocumentFragment();
+          words.forEach(w => {
+            if (/\S/.test(w)) {
+              const span = document.createElement('span');
+              span.className = 'word-float';
+              span.style.animationDelay = `${wordIndex * 0.08}s`;
+              span.style.animationFillMode = 'both';
+              span.textContent = w;
+              frag.appendChild(span);
+              wordIndex++;
+            } else {
+              frag.appendChild(document.createTextNode(w));
+            }
+          });
+          node.parentNode.replaceChild(frag, node);
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+          Array.from(node.childNodes).forEach(wrapWordsInNode);
+        }
+      }
+
+      let wordIndex = 0;
+      Array.from(el.childNodes).forEach(wrapWordsInNode);
+      wordObserver.unobserve(el);
+    });
+  }, { threshold: 0.2 });
+
+  titleEls.forEach(el => wordObserver.observe(el));
+}
+initWordAnimations();
+
+
+/* ══════════════════════════════════════════
+   SCROLL-REVEAL for cards and elements
+   Fade up with staggered delay
+   ══════════════════════════════════════════ */
 const revealEls = document.querySelectorAll(
   '.feature-card, .platform-card, .ext-card, .story-quote-block, .android-browser-card, .screenshot-card, .screenshots-stats'
 );
@@ -228,32 +278,60 @@ const revealObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
 revealEls.forEach((el, i) => {
-  el.style.opacity    = '0';
-  el.style.transform  = 'translateY(28px)';
+  el.style.opacity   = '0';
+  el.style.transform = 'translateY(28px)';
   el.style.transition = `opacity 0.6s ease ${i * 0.06}s, transform 0.6s ease ${i * 0.06}s`;
   revealObserver.observe(el);
 });
 
-/* ── Installation Guide — tab switching ── */
+
+/* ══════════════════════════════════════════
+   ACTIVE NAV LINK HIGHLIGHT (top navbar)
+   ══════════════════════════════════════════ */
+const navAnchors = document.querySelectorAll('.nav-links a');
+
+const navSectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.getAttribute('id');
+      navAnchors.forEach(a => {
+        a.style.color = a.getAttribute('href') === `#${id}` ? 'var(--cyan)' : '';
+      });
+    }
+  });
+}, { rootMargin: '-40% 0px -55% 0px' });
+
+sections.forEach(s => navSectionObserver.observe(s));
+
+
+/* ══════════════════════════════════════════
+   INSTALLATION GUIDE — tab switching
+   ══════════════════════════════════════════ */
 const installTabs   = document.querySelectorAll('.install-tab');
 const installPanels = document.querySelectorAll('.install-panel');
 
 installTabs.forEach(tab => {
   tab.addEventListener('click', () => {
     const target = tab.dataset.target;
+
     installTabs.forEach(t => {
       t.classList.remove('install-tab--active');
       t.setAttribute('aria-selected', 'false');
     });
     installPanels.forEach(p => p.classList.add('install-panel--hidden'));
+
     tab.classList.add('install-tab--active');
     tab.setAttribute('aria-selected', 'true');
+
     const panel = document.getElementById(target);
     if (panel) panel.classList.remove('install-panel--hidden');
   });
 });
 
-/* ── Install screenshot shimmer removal ── */
+
+/* ══════════════════════════════════════════
+   INSTALL SCREENSHOT SHIMMER REMOVAL
+   ══════════════════════════════════════════ */
 document.querySelectorAll('.install-shot-frame').forEach(frame => {
   const img = frame.querySelector('.install-shot-img');
   if (!img) return;
@@ -266,7 +344,10 @@ document.querySelectorAll('.install-shot-frame').forEach(frame => {
   }
 });
 
-/* ── Hero logo fallback ── */
+
+/* ══════════════════════════════════════════
+   HERO LOGO FALLBACK
+   ══════════════════════════════════════════ */
 const heroLogo = document.getElementById('heroLogo');
 if (heroLogo) {
   heroLogo.addEventListener('error', () => {
@@ -277,10 +358,9 @@ if (heroLogo) {
       border: 2px solid rgba(14,165,233,0.4);
       border-radius: 24px;
       display: flex; align-items: center; justify-content: center;
-      font-family: 'Orbitron', sans-serif;
+      font-family: 'Afacad Flux', sans-serif;
       font-size: 1.5rem; font-weight: 900;
-      color: #0ea5e9;
-      letter-spacing: 0.12em;
+      color: #0ea5e9; letter-spacing: 0.12em;
       background: rgba(14,165,233,0.05);
     `;
     placeholder.textContent = 'CiPHER';
@@ -288,12 +368,15 @@ if (heroLogo) {
   });
 }
 
-/* ── Typing cursor effect on hero tagline ── */
-const heroSub = document.querySelector('.hero-sub');
+
+/* ══════════════════════════════════════════
+   TYPING CURSOR EFFECT on hero tagline
+   ══════════════════════════════════════════ */
+const heroSub = document.getElementById('heroSub');
 if (heroSub) {
   const fullText = heroSub.textContent;
   heroSub.textContent = '';
-  heroSub.style.borderRight = '2px solid #0ea5e9';
+  heroSub.style.borderRight = '2px solid var(--cyan, #0ea5e9)';
 
   let idx = 0;
   const typeInterval = setInterval(() => {
@@ -301,135 +384,45 @@ if (heroSub) {
     idx++;
     if (idx >= fullText.length) {
       clearInterval(typeInterval);
-      setTimeout(() => { heroSub.style.borderRight = 'none'; }, 800);
+      setTimeout(() => {
+        heroSub.style.transition = 'border-color 0.5s';
+        heroSub.style.borderColor = 'transparent';
+      }, 900);
     }
-  }, 45);
+  }, 42);
 }
 
-/* ── Navbar logo subtle glitch effect ── */
-const navLogo = document.querySelector('.nav-logo');
-if (navLogo) {
-  setInterval(() => {
-    if (Math.random() > 0.92) {
-      navLogo.style.textShadow = `
-        ${(Math.random() - 0.5) * 4}px 0 rgba(14,165,233,0.7),
-        ${(Math.random() - 0.5) * 4}px 0 rgba(99,102,241,0.5)
-      `;
-      setTimeout(() => { navLogo.style.textShadow = ''; }, 80);
-    }
-  }, 2500);
-}
 
-/* ── Stat counter animation ── */
-function animateCounter(el, target, suffix = '') {
-  const duration = 1600;
-  const start = performance.now();
-  const from = 0;
-
-  function update(now) {
-    const elapsed = now - start;
-    const progress = Math.min(elapsed / duration, 1);
-    // Ease out cubic
-    const eased = 1 - Math.pow(1 - progress, 3);
-    const current = Math.round(from + (target - from) * eased);
-    el.textContent = (target < 50 ? current : '<' + current) + suffix;
-    if (progress < 1) requestAnimationFrame(update);
-  }
-  requestAnimationFrame(update);
-}
-
-const statCounters = document.querySelectorAll('.counter[data-target]');
-const counterObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const el = entry.target;
-      const target = parseInt(el.dataset.target, 10);
-      const suffix = el.dataset.suffix || '';
-      animateCounter(el, target, suffix);
-      counterObserver.unobserve(el);
-    }
-  });
-}, { threshold: 0.5 });
-
-statCounters.forEach(el => counterObserver.observe(el));
-
-/* ── Hire me button micro-sparkle on hover ── */
-const hireMeBtn = document.querySelector('.hire-me-btn');
+/* ══════════════════════════════════════════
+   HIRE ME BUTTON — ripple click effect
+   ══════════════════════════════════════════ */
+const hireMeBtn = document.querySelector('.btn-hire-me');
 if (hireMeBtn) {
-  hireMeBtn.addEventListener('mouseenter', () => {
-    hireMeBtn.style.boxShadow = '0 0 20px rgba(255,255,255,0.08), 0 4px 20px rgba(0,0,0,0.5)';
-  });
-  hireMeBtn.addEventListener('mouseleave', () => {
-    hireMeBtn.style.boxShadow = '';
+  hireMeBtn.addEventListener('click', function(e) {
+    // Ripple
+    const ripple = document.createElement('span');
+    const rect = this.getBoundingClientRect();
+    ripple.style.cssText = `
+      position: absolute;
+      width: 6px; height: 6px;
+      background: rgba(14,165,233,0.5);
+      border-radius: 50%;
+      left: ${e.clientX - rect.left - 3}px;
+      top: ${e.clientY - rect.top - 3}px;
+      transform: scale(0);
+      animation: rippleAnim 0.55s ease-out forwards;
+      pointer-events: none;
+    `;
+    // Inject keyframes once
+    if (!document.getElementById('rippleStyle')) {
+      const style = document.createElement('style');
+      style.id = 'rippleStyle';
+      style.textContent = `@keyframes rippleAnim { to { transform: scale(20); opacity: 0; } }`;
+      document.head.appendChild(style);
+    }
+    this.style.position = 'relative';
+    this.style.overflow = 'hidden';
+    this.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 600);
   });
 }
-
-/* ── Ambient orb parallax on mouse move ── */
-const orb1 = document.querySelector('.ambient-orb--1');
-const orb2 = document.querySelector('.ambient-orb--2');
-if (orb1 && orb2) {
-  let ticking = false;
-  document.addEventListener('mousemove', (e) => {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(() => {
-      const xRatio = e.clientX / window.innerWidth;
-      const yRatio = e.clientY / window.innerHeight;
-      orb1.style.transform = `translate(${xRatio * 30}px, ${yRatio * 20}px)`;
-      orb2.style.transform = `translate(${-xRatio * 20}px, ${-yRatio * 15}px)`;
-      ticking = false;
-    });
-  });
-}
-
-/* ── Section entrance: section-coach-badge slide-up ── */
-const storyTextParas = document.querySelectorAll('.story-text p');
-storyTextParas.forEach((p, i) => {
-  p.style.opacity    = '0';
-  p.style.transform  = 'translateY(18px)';
-  p.style.transition = `opacity 0.55s ease ${0.15 + i * 0.12}s, transform 0.55s ease ${0.15 + i * 0.12}s`;
-});
-
-const parasObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.querySelectorAll('.story-text p').forEach(p => {
-        p.style.opacity   = '1';
-        p.style.transform = 'translateY(0)';
-      });
-      parasObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.2 });
-
-const storyGrid = document.querySelector('.story-grid');
-if (storyGrid) parasObserver.observe(storyGrid);
-
-/* ── Step badges stagger reveal ── */
-const stepBadges = document.querySelectorAll('.step-badge, .install-subsection-label');
-stepBadges.forEach((el, i) => {
-  el.style.opacity   = '0';
-  el.style.transform = 'scale(0.8)';
-  el.style.transition = `opacity 0.4s ease ${i * 0.05}s, transform 0.4s ease ${i * 0.05}s`;
-});
-
-const stepObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.style.opacity   = '1';
-      entry.target.style.transform = 'scale(1)';
-      stepObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.3 });
-
-stepBadges.forEach(el => stepObserver.observe(el));
-
-/* ── Page load entrance fade ── */
-document.body.style.opacity = '0';
-document.body.style.transition = 'opacity 0.5s ease';
-window.addEventListener('load', () => {
-  requestAnimationFrame(() => {
-    document.body.style.opacity = '1';
-  });
-});
