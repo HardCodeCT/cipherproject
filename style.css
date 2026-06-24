@@ -688,7 +688,7 @@ blockquote em { color: var(--cyan); font-style: normal; }
   font-family: var(--font-main); font-size: 1rem; font-weight: 700;
   margin-bottom: 0.5rem; color: #ff8a00;
 }
-.android-browser-content p { font-size: 0.9rem; color: var(--muted-card); line-height: 1.75; margin-bottom: 0.75rem; }
+.android-browser-content p { font-size: 0.9rem; color: white; line-height: 1.75; margin-bottom: 0.75rem; }
 .android-browser-content strong { color: var(--white); font-weight: 600; }
 .kiwi-steps { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 0.25rem; }
 .kiwi-step {
