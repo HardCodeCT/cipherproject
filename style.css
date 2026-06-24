@@ -94,7 +94,6 @@ img { max-width: 100%; display: block; }
   white-space: nowrap;
 }
 
-/* Coach label in navbar */
 .nav-coach-label {
   font-family: var(--font-main);
   font-weight: 600;
@@ -676,18 +675,18 @@ blockquote em { color: var(--cyan); font-style: normal; }
   position: absolute; top: -1px; left: 2rem;
   font-family: var(--font-main); font-weight: 700; font-size: 0.68rem;
   letter-spacing: 0.1em; text-transform: uppercase;
-  color: #0f0f0f; background: #4ade80;
+  color: #0f0f0f; background: #ff8a00;
   padding: 0.25rem 0.75rem; border-radius: 0 0 8px 8px;
 }
 .android-browser-content { display: flex; gap: 1.5rem; align-items: flex-start; margin-top: 1rem; }
 .kiwi-icon { width: 56px; height: 56px; flex-shrink: 0; }
 .kiwi-icon svg { width: 100%; height: 100%; }
-.android-browser-content h4 { font-family: var(--font-main); font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; color: #4ade80; }
+.android-browser-content h4 { font-family: var(--font-main); font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; color: #ff8a00; }
 .android-browser-content p { font-size: 0.9rem; color: var(--muted-card); line-height: 1.75; margin-bottom: 0.75rem; }
 .android-browser-content strong { color: var(--white); font-weight: 600; }
 .kiwi-steps { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 0.25rem; }
 .kiwi-step { display: flex; align-items: center; font-family: var(--font-main); font-weight: 400; font-size: 0.8rem; color: var(--muted-card); gap: 0.5rem; }
-.kiwi-step::before { content: '▸'; color: #4ade80; flex-shrink: 0; }
+.kiwi-step::before { content: '▸'; color: #ff8a00; flex-shrink: 0; }
 
 /* ── Disclaimer banner ── */
 .disclaimer-banner { position: relative; z-index: 1; padding: 3rem 2rem; background: rgba(239,68,68,0.1); }
@@ -774,7 +773,6 @@ blockquote em { color: var(--cyan); font-style: normal; }
   display: flex;
   align-items: stretch;
   padding: 0;
-  /* Fade in from bottom — starts hidden */
   opacity: 0;
   transform: translateY(100%);
   transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1),
@@ -884,7 +882,7 @@ blockquote em { color: var(--cyan); font-style: normal; }
 .install-shot-frame {
   position: relative; border-radius: var(--radius); overflow: hidden;
   background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.08);
-  margin-bottom: 1.25rem; min-height: 180px;
+  margin-bottom: 1.25rem; min-height: 80px;
 }
 .install-shot-img { width: 100%; display: block; border-radius: var(--radius); transition: opacity 0.3s; }
 .install-shimmer {
@@ -916,13 +914,109 @@ blockquote em { color: var(--cyan); font-style: normal; }
 .quetta-recommend-badge { margin-left: auto; flex-shrink: 0; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #0f0f0f; background: #4ade80; padding: 0.25rem 0.75rem; border-radius: 20px; }
 .quetta-name { color: #4ade80; }
 
+/* ── Android Install Steps Grid ── */
+.install-steps-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+/* On large screens: 3 columns, steps become cards side by side */
+@media (min-width: 900px) {
+  .install-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  /* Each step in the grid becomes a self-contained card */
+  .install-steps-grid .install-step {
+    background: var(--bg-alt);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    padding-bottom: 1.5rem;
+    border: 1px solid rgba(0,0,0,0.06);
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  /* Remove the vertical connector line inside grid */
+  .install-steps-grid .install-step::before {
+    display: none;
+  }
+
+  /* Badge sits at top */
+  .install-steps-grid .step-badge {
+    flex-shrink: 0;
+    align-self: flex-start;
+  }
+
+  /* Cap image height so nothing blows up */
+  .install-steps-grid .install-shot-frame {
+    max-height: 200px;
+    overflow: hidden;
+  }
+
+  .install-steps-grid .install-shot-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  /* Keep step-desc width unconstrained inside cards */
+  .install-steps-grid .step-desc {
+    max-width: 100%;
+  }
+}
+
+/* Tablet: 2 columns */
+@media (min-width: 600px) and (max-width: 899px) {
+  .install-steps-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    align-items: start;
+  }
+
+  .install-steps-grid .install-step {
+    background: var(--bg-alt);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    padding-bottom: 1.25rem;
+    border: 1px solid rgba(0,0,0,0.06);
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .install-steps-grid .install-step::before {
+    display: none;
+  }
+
+  .install-steps-grid .install-shot-frame {
+    max-height: 180px;
+    overflow: hidden;
+  }
+
+  .install-steps-grid .install-shot-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  .install-steps-grid .step-desc {
+    max-width: 100%;
+  }
+}
+
 /* ── Animations ── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(30px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Word float animation for section titles */
 .word-float {
   display: inline-block;
   animation: wordFloat 0.7s cubic-bezier(0.34,1.56,0.64,1) both;
@@ -964,7 +1058,6 @@ blockquote em { color: var(--cyan); font-style: normal; }
   .screenshots-stats { flex-direction: column; gap: 1.5rem; padding: 2rem 1.5rem; }
   .stat-divider { width: 40px; height: 1px; margin: 0; }
   .btn-hire-me span { display: none; }
-  /* On mobile just show X icon */
   .btn-hire-me { padding: 0.48rem 0.7rem; }
 }
 @media (max-width: 480px) {
@@ -975,58 +1068,36 @@ blockquote em { color: var(--cyan); font-style: normal; }
   .bottom-nav-label { font-size: 0.52rem; }
 }
 
-
-/* ===== ChatGPT requested changes ===== */
-
-/* Large screens: title/writeup on top, screenshots in 3-column layout underneath */
-@media (min-width: 900px){
-  .screenshots-header{
-    max-width:100%;
-    text-align:center;
-    margin-bottom:2rem;
+/* ── Screenshots large screen layout ── */
+@media (min-width: 900px) {
+  .screenshots-header {
+    max-width: 100%;
+    text-align: center;
+    margin-bottom: 2rem;
   }
-
-  .screenshots-grid{
-    grid-template-columns:repeat(3,1fr);
-    align-items:start;
+  .screenshots-grid {
+    grid-template-columns: repeat(3, 1fr);
+    align-items: start;
   }
-
-  .screenshot-card--desktop{
-    grid-column:span 2;
+  .screenshot-card--desktop {
+    grid-column: span 2;
   }
-
-  .screenshot-card--android{
-    grid-column:span 1;
-    max-width:none;
-    width:100%;
+  .screenshot-card--android {
+    grid-column: span 1;
+    max-width: none;
+    width: 100%;
   }
 }
 
-/* Tablet */
-@media (min-width:768px) and (max-width:899px){
-  .screenshots-grid{
-    grid-template-columns:repeat(3,1fr);
+@media (min-width: 768px) and (max-width: 899px) {
+  .screenshots-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
-
-  .screenshot-card--desktop{
-    grid-column:span 2;
+  .screenshot-card--desktop {
+    grid-column: span 2;
   }
-
-  .screenshot-card--android{
-    grid-column:span 1;
-    max-width:none;
+  .screenshot-card--android {
+    grid-column: span 1;
+    max-width: none;
   }
-}
-
-/* Quetta branding */
-.android-browser-badge{
-  background:#ff8a00;
-}
-
-.android-browser-content h4{
-  color:#ff8a00;
-}
-
-.kiwi-step::before{
-  color:#ff8a00;
 }
