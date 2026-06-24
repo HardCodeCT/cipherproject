@@ -974,3 +974,59 @@ blockquote em { color: var(--cyan); font-style: normal; }
   .screenshots-header { max-width: 100%; }
   .bottom-nav-label { font-size: 0.52rem; }
 }
+
+
+/* ===== ChatGPT requested changes ===== */
+
+/* Large screens: title/writeup on top, screenshots in 3-column layout underneath */
+@media (min-width: 900px){
+  .screenshots-header{
+    max-width:100%;
+    text-align:center;
+    margin-bottom:2rem;
+  }
+
+  .screenshots-grid{
+    grid-template-columns:repeat(3,1fr);
+    align-items:start;
+  }
+
+  .screenshot-card--desktop{
+    grid-column:span 2;
+  }
+
+  .screenshot-card--android{
+    grid-column:span 1;
+    max-width:none;
+    width:100%;
+  }
+}
+
+/* Tablet */
+@media (min-width:768px) and (max-width:899px){
+  .screenshots-grid{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .screenshot-card--desktop{
+    grid-column:span 2;
+  }
+
+  .screenshot-card--android{
+    grid-column:span 1;
+    max-width:none;
+  }
+}
+
+/* Quetta branding */
+.android-browser-badge{
+  background:#ff8a00;
+}
+
+.android-browser-content h4{
+  color:#ff8a00;
+}
+
+.kiwi-step::before{
+  color:#ff8a00;
+}
