@@ -694,7 +694,7 @@ blockquote em { color: var(--cyan); font-style: normal; }
 .kiwi-step {
   display: flex; align-items: center;
   font-family: var(--font-main); font-weight: 400; font-size: 0.8rem;
-  color: var(--muted-card); gap: 0.5rem;
+  color: white; gap: 0.5rem;
 }
 .kiwi-step::before { content: '▸'; color: #ff8a00; flex-shrink: 0; }
 
