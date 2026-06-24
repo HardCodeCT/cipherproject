@@ -426,3 +426,88 @@ if (hireMeBtn) {
     setTimeout(() => ripple.remove(), 600);
   });
 }
+
+/* ═══════════════════════════════════════════════════
+   LIGHTBOX for Android installation screenshots
+   ═══════════════════════════════════════════════════ */
+
+(function initLightbox() {
+  // Only target images inside the Android tab
+  const androidTab = document.getElementById('tab-android');
+  if (!androidTab) return;
+
+  // Build the modal DOM elements
+  const overlay = document.createElement('div');
+  overlay.className = 'lightbox-overlay';
+  overlay.setAttribute('role', 'dialog');
+  overlay.setAttribute('aria-modal', 'true');
+  overlay.setAttribute('aria-label', 'Enlarged screenshot');
+
+  const content = document.createElement('div');
+  content.className = 'lightbox-content';
+
+  const img = document.createElement('img');
+  img.alt = 'Enlarged installation screenshot';
+  content.appendChild(img);
+
+  const closeBtn = document.createElement('button');
+  closeBtn.className = 'lightbox-close';
+  closeBtn.innerHTML = '✕';
+  closeBtn.setAttribute('aria-label', 'Close image');
+  content.appendChild(closeBtn);
+
+  overlay.appendChild(content);
+  document.body.appendChild(overlay);
+
+  let currentImage = null;
+
+  function openLightbox(src) {
+    img.src = src;
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden'; // prevent scroll
+  }
+
+  function closeLightbox() {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+    // Optionally clear src to free memory
+    // img.src = '';
+  }
+
+  // Click on any image inside Android tab to open
+  const androidImages = androidTab.querySelectorAll('.install-shot-img');
+  androidImages.forEach((image) => {
+    image.addEventListener('click', function (e) {
+      e.stopPropagation();
+      const src = this.getAttribute('src');
+      if (src) {
+        openLightbox(src);
+      }
+    });
+  });
+
+  // Close on backdrop click (click on overlay itself)
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) {
+      closeLightbox();
+    }
+  });
+
+  // Close with Escape key
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('active')) {
+      closeLightbox();
+    }
+  });
+
+  // Close with close button
+  closeBtn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    closeLightbox();
+  });
+
+  // Prevent body scroll when modal is open (handled via overflow:hidden)
+  // Also ensure modal closes if the user scrolls? No need.
+
+  // If the modal is open and the window resizes, the image will adapt automatically.
+})();
