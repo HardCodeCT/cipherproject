@@ -676,18 +676,30 @@ blockquote em { color: var(--cyan); font-style: normal; }
   position: absolute; top: -1px; left: 2rem;
   font-family: var(--font-main); font-weight: 700; font-size: 0.68rem;
   letter-spacing: 0.1em; text-transform: uppercase;
-  color: #0f0f0f; background: #4ade80;
+  color: #0f0f0f; background: #ff8a00;  /* changed to orange */
   padding: 0.25rem 0.75rem; border-radius: 0 0 8px 8px;
 }
 .android-browser-content { display: flex; gap: 1.5rem; align-items: flex-start; margin-top: 1rem; }
 .kiwi-icon { width: 56px; height: 56px; flex-shrink: 0; }
 .kiwi-icon svg { width: 100%; height: 100%; }
-.android-browser-content h4 { font-family: var(--font-main); font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; color: #4ade80; }
+.android-browser-content h4 {
+  font-family: var(--font-main); font-size: 1rem; font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #ff8a00;  /* changed to orange */
+}
 .android-browser-content p { font-size: 0.9rem; color: var(--muted-card); line-height: 1.75; margin-bottom: 0.75rem; }
 .android-browser-content strong { color: var(--white); font-weight: 600; }
 .kiwi-steps { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 0.25rem; }
-.kiwi-step { display: flex; align-items: center; font-family: var(--font-main); font-weight: 400; font-size: 0.8rem; color: var(--muted-card); gap: 0.5rem; }
-.kiwi-step::before { content: '▸'; color: #4ade80; flex-shrink: 0; }
+.kiwi-step {
+  display: flex; align-items: center;
+  font-family: var(--font-main); font-weight: 400; font-size: 0.8rem;
+  color: var(--muted-card); gap: 0.5rem;
+}
+.kiwi-step::before {
+  content: '▸';
+  color: #ff8a00;  /* changed to orange */
+  flex-shrink: 0;
+}
 
 /* ── Disclaimer banner ── */
 .disclaimer-banner { position: relative; z-index: 1; padding: 3rem 2rem; background: rgba(239,68,68,0.1); }
@@ -702,7 +714,6 @@ blockquote em { color: var(--cyan); font-style: normal; }
   border-top: 1px solid rgba(0,0,0,0.07); background: var(--bg);
 }
 .footer-inner { display: flex; align-items: center; gap: 3rem; flex-wrap: wrap; }
-.nav-logo { display: block; margin-bottom: 0.4rem; font-size: 1.1rem; color: var(--dark); }
 .footer-brand p { font-family: var(--font-main); font-weight: 400; font-size: 0.75rem; color: var(--muted); }
 .footer-links { display: flex; gap: 1.5rem; margin-left: auto; }
 .footer-links a { font-family: var(--font-main); font-weight: 500; font-size: 0.8rem; color: var(--muted); transition: color var(--transition); }
@@ -774,7 +785,6 @@ blockquote em { color: var(--cyan); font-style: normal; }
   display: flex;
   align-items: stretch;
   padding: 0;
-  /* Fade in from bottom — starts hidden */
   opacity: 0;
   transform: translateY(100%);
   transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1),
@@ -922,7 +932,6 @@ blockquote em { color: var(--cyan); font-style: normal; }
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Word float animation for section titles */
 .word-float {
   display: inline-block;
   animation: wordFloat 0.7s cubic-bezier(0.34,1.56,0.64,1) both;
@@ -964,7 +973,6 @@ blockquote em { color: var(--cyan); font-style: normal; }
   .screenshots-stats { flex-direction: column; gap: 1.5rem; padding: 2rem 1.5rem; }
   .stat-divider { width: 40px; height: 1px; margin: 0; }
   .btn-hire-me span { display: none; }
-  /* On mobile just show X icon */
   .btn-hire-me { padding: 0.48rem 0.7rem; }
 }
 @media (max-width: 480px) {
@@ -975,7 +983,6 @@ blockquote em { color: var(--cyan); font-style: normal; }
   .bottom-nav-label { font-size: 0.52rem; }
 }
 
-
 /* ===== ChatGPT requested changes ===== */
 
 /* Large screens: title/writeup on top, screenshots in 3-column layout underneath */
@@ -985,16 +992,13 @@ blockquote em { color: var(--cyan); font-style: normal; }
     text-align:center;
     margin-bottom:2rem;
   }
-
   .screenshots-grid{
     grid-template-columns:repeat(3,1fr);
     align-items:start;
   }
-
   .screenshot-card--desktop{
     grid-column:span 2;
   }
-
   .screenshot-card--android{
     grid-column:span 1;
     max-width:none;
@@ -1007,11 +1011,9 @@ blockquote em { color: var(--cyan); font-style: normal; }
   .screenshots-grid{
     grid-template-columns:repeat(3,1fr);
   }
-
   .screenshot-card--desktop{
     grid-column:span 2;
   }
-
   .screenshot-card--android{
     grid-column:span 1;
     max-width:none;
@@ -1022,11 +1024,92 @@ blockquote em { color: var(--cyan); font-style: normal; }
 .android-browser-badge{
   background:#ff8a00;
 }
-
 .android-browser-content h4{
   color:#ff8a00;
 }
-
 .kiwi-step::before{
   color:#ff8a00;
+}
+
+/* --------------------------------------------
+   Install shot frames — Desktop vs Android
+   -------------------------------------------- */
+
+/* Desktop tab: always full width, limited height */
+#tab-desktop .install-shot-frame {
+  width: 100%;
+  max-height: 400px;
+  overflow: hidden;
+}
+#tab-desktop .install-shot-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Android tab – default (mobile) remains as is */
+#tab-android .install-shot-frame {
+  /* no change for small screens */
+}
+
+/* iPad-sized tablets (768px – 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  #tab-android .install-shot-frame {
+    width: 70%;
+    max-height: 350px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+  }
+  #tab-android .install-shot-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+}
+
+/* PC and large tablets (above 1024px) */
+@media (min-width: 1025px) {
+  #tab-android .install-shot-frame {
+    width: 50%;
+    max-height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+  }
+  #tab-android .install-shot-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+}
+
+/* ── Video Section Grid ── */
+.video-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .video-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .video-section .screenshot-card--android {
+    max-width: 340px;
+    margin: 0 auto;
+    width: 100%;
+  }
+}
+
+.video-section .screenshot-card--android {
+  max-width: none;
+}
+
+.video-section .screenshot-card--desktop {
+  max-width: none;
 }
