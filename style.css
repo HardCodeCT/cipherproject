@@ -192,7 +192,7 @@ img { max-width: 100%; display: block; }
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 120px 2rem 80px;
+  padding: 120px 2rem 20px;
   overflow: hidden;
   z-index: 1;
 }
