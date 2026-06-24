@@ -3,31 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Primary meta -->
-  <meta name="description" content="Real-time chess engine overlay for deliberate practice. Face the positions you fear — with move suggestions in the moment, not after the damage is done." />
-
-  <!-- Open Graph (WhatsApp · Telegram · Facebook · LinkedIn · Discord) -->
-  <meta property="og:type"        content="website" />
-  <meta property="og:url"         content="https://cipherproject-umber.vercel.app/" />
-  <meta property="og:title"       content="CiPHER — Real-Time Chess Training" />
-  <meta property="og:description" content="Real-time chess engine overlay for deliberate practice. Face the positions you fear — with move suggestions in the moment, not after the damage is done." />
-  <meta property="og:image"       content="https://cipherproject-umber.vercel.app/og-image.png" />
-  <meta property="og:image:width"  content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:site_name"   content="CiPHER" />
-  <meta property="og:locale"      content="en_US" />
-
-  <!-- Twitter / X Card -->
-  <meta name="twitter:card"        content="summary_large_image" />
-  <meta name="twitter:site"        content="@Hard_Code_T" />
-  <meta name="twitter:creator"     content="@Hard_Code_T" />
-  <meta name="twitter:title"       content="CiPHER — Real-Time Chess Training" />
-  <meta name="twitter:description" content="Real-time chess engine overlay for deliberate practice. Face the positions you fear — with move suggestions in the moment, not after the damage is done." />
-  <meta name="twitter:image"       content="https://cipherproject-umber.vercel.app/og-image.png" />
-
   <link rel="icon" type="image/png" href="cipherlogo.png" />
-  <title>CiPHER — Real-Time Chess Training</title>
+  <title>CiPHER — Chess Coach</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap" rel="stylesheet" />
@@ -41,10 +18,15 @@
   <!-- Background grid -->
   <div class="bg-grid" aria-hidden="true"></div>
 
+  <!-- Floating particles canvas -->
+  <canvas id="particleCanvas" aria-hidden="true"></canvas>
+
   <!-- NAVBAR -->
   <nav class="navbar" id="navbar">
     <div class="nav-inner">
       <span class="nav-logo"><img src="cipherlogo.png" alt="CiPHER logo" class="nav-logo-img" />Ci<span class="accent">PH</span>ER</span>
+      <!-- Coach label -->
+      <span class="nav-coach-label">Chess Coach</span>
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#features">Features</a></li>
@@ -53,9 +35,81 @@
         <li><a href="#extension">Extension</a></li>
         <li><a href="#install">Install</a></li>
       </ul>
+      <!-- Hire Me button -->
+      <a href="https://x.com/Hard_Code_T" target="_blank" rel="noopener noreferrer" class="btn-hire-me">
+        <svg class="x-logo" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.74l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        </svg>
+        <span>Hire Me</span>
+      </a>
       <a href="#download" class="nav-cta">Get Cipher</a>
     </div>
   </nav>
+
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-pieces" aria-hidden="true">
+      <span class="piece p1">♔</span>
+      <span class="piece p2">♟</span>
+      <span class="piece p3">♗</span>
+      <span class="piece p4">♜</span>
+      <span class="piece p5">♞</span>
+    </div>
+
+    <div class="hero-content">
+      <!-- Logo -->
+      <div class="hero-logo-wrap">
+        <img src="cipherlogo.png" alt="CiPHER" class="hero-logo" id="heroLogo" />
+        <div class="logo-glow-ring"></div>
+      </div>
+
+      <!-- Coach badge -->
+      <div class="hero-coach-badge">
+        <span class="coach-badge-icon">♛</span>
+        <span class="coach-badge-text">AI Chess Coach</span>
+        <span class="coach-badge-dot"></span>
+      </div>
+
+      <!-- Tagline row -->
+      <div class="hero-tagline-row">
+        <span class="tag-line-bar"></span>
+        <span class="hero-sub" id="heroSub">Real-Time Engine Intelligence</span>
+        <span class="tag-line-bar"></span>
+      </div>
+
+      <h1 class="hero-title">
+        Train Smarter.<br/>
+        <span class="hero-title-accent">Think Deeper.</span>
+      </h1>
+
+      <p class="hero-desc">
+        Face your <em>feared positions</em> with real-time engine guidance. Not post-game regret — live, in the moment, while the pressure is real.
+      </p>
+
+      <!-- Badges -->
+      <div class="hero-badges">
+        <span class="badge"><span class="badge-dot"></span>Fairy-Stockfish Engine</span>
+        <span class="badge"><span class="badge-dot"></span>Chess.com &amp; Lichess</span>
+        <span class="badge"><span class="badge-dot"></span>Windows · macOS · Linux · Android</span>
+      </div>
+
+      <!-- Actions -->
+      <div class="hero-actions">
+        <a href="#download" class="btn-primary">
+          <span>Download Free</span>
+          <span class="btn-icon">↓</span>
+        </a>
+        <a href="#about" class="btn-ghost">Learn the philosophy</a>
+      </div>
+
+      <!-- Disclaimer -->
+      <div class="hero-disclaimer">
+        <span class="disclaimer-icon">⚠</span>
+        <span>Designed for unrated &amp; casual training games only. Use during rated play violates fair play policies.</span>
+      </div>
+    </div>
+  </section>
 
 
   <!-- ABOUT / STORY -->
@@ -251,7 +305,6 @@
 
       <div class="platform-grid">
 
-        <!-- Windows -->
         <div class="platform-card" data-platform="windows">
           <div class="platform-icon">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/></svg>
@@ -266,7 +319,6 @@
           </a>
         </div>
 
-        <!-- macOS -->
         <div class="platform-card" data-platform="mac">
           <div class="platform-icon">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.54 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701z"/></svg>
@@ -281,7 +333,6 @@
           </a>
         </div>
 
-        <!-- Linux -->
         <div class="platform-card" data-platform="linux">
           <div class="platform-icon">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.504 0c-.155 0-.315.008-.48.021C7.576.336 3.59 2.541 2.65 5.304c-.46 1.357-.439 2.531-.084 3.534.379 1.063 1.128 1.884 1.99 2.483.244.172.477.316.68.422.26.135.493.225.676.279.183.054.31.07.317.076.007.006-.043.037-.037.034.127-.068.227-.128.324-.184.354-.207.764-.509 1.205-.906a14.52 14.52 0 0 0 1.353-1.498c.45-.588.87-1.226 1.214-1.87.176-.323.324-.646.44-.956C11.285 5.63 11.41 4.8 11.41 4.8H11c.41.01.824.004 1.229 0h.047c-.003 0-.006.005-.009.005-.004.001-.005-.007-.008-.006a2.504 2.504 0 0 1 .312-.006c.026.001.059.003.076.005.017.003.023.01.027.01.003 0 .002-.006.003-.007.146.02.28.044.394.07.116.026.213.058.3.095.088.037.172.082.258.138.086.057.175.127.268.215.19.18.393.433.594.762.2.33.395.731.571 1.189.177.46.333.976.457 1.527.124.554.215 1.14.258 1.738.02.3.031.603.031.903 0 .3-.01.6-.03.897-.044.596-.135 1.178-.259 1.73-.124.551-.28 1.064-.456 1.523-.175.458-.369.855-.57 1.185-.202.332-.403.582-.592.76-.09.09-.18.16-.265.215-.087.055-.172.1-.257.136-.087.037-.184.07-.301.095-.115.026-.25.05-.395.07-.003.001-.002.007-.003.007-.004 0-.01-.007-.027-.01-.017-.002-.05-.004-.076-.005a2.49 2.49 0 0 1-.312-.006c.003.001.004-.007.008-.006l.009.005H11.41c-.413-.004-.827-.01-1.237 0H10c0 0-.125-.83-.462-1.89-.118-.312-.268-.638-.445-.963-.345-.648-.767-1.29-1.218-1.878a14.5 14.5 0 0 0-1.352-1.495c-.442-.398-.853-.7-1.207-.907-.097-.057-.196-.117-.323-.185-.006-.003.044.028.037.034-.007.006-.134.022-.317.076-.183.054-.416.144-.676.279-.203.106-.436.25-.68.422-.863.599-1.61 1.42-1.99 2.483-.354 1.003-.376 2.177.084 3.534C3.59 21.459 7.576 23.664 12.024 23.98c.165.013.325.02.48.02 4.448 0 8.16-2.166 9.197-5.163.46-1.357.439-2.531.084-3.534-.379-1.063-1.128-1.884-1.99-2.483-.244-.172-.477-.316-.68-.422-.26-.135-.493-.225-.676-.279-.183-.054-.31-.07-.317-.076-.007-.006.043-.037.037-.034-.127.068-.227.128-.324.184-.354.207-.764.509-1.205.906a14.52 14.52 0 0 0-1.353 1.498c-.45.588-.87 1.226-1.214 1.87-.176.323-.324.646-.44.956-.337 1.059-.462 1.89-.462 1.89h-.41c.41-.01.824-.004 1.229 0z"/></svg>
@@ -296,7 +347,6 @@
           </a>
         </div>
 
-        <!-- Android -->
         <div class="platform-card platform-card--android" data-platform="android">
           <div class="platform-icon">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -323,7 +373,6 @@
 
       </div>
 
-      <!-- Android note -->
       <div class="android-note">
         <span class="android-note-icon">ℹ</span>
         <div>
@@ -381,7 +430,6 @@
 
       </div>
 
-      <!-- Android browser recommendation -->
       <div class="android-browser-section">
         <h3 class="android-browser-title">Recommended Mobile Browser</h3>
 
@@ -421,7 +469,6 @@
       <h2 class="section-title">Installation<br/><span class="accent">Guide</span></h2>
       <p class="install-intro">Follow the steps below for your platform. Everything runs locally — no accounts needed.</p>
 
-      <!-- Tab switcher -->
       <div class="install-tabs" role="tablist" aria-label="Installation platform">
         <button class="install-tab install-tab--active" data-target="tab-desktop" role="tab" aria-selected="true">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" width="16" height="16">
@@ -452,7 +499,6 @@
         </button>
       </div>
 
-      <!-- DESKTOP TAB -->
       <div class="install-panel" id="tab-desktop" role="tabpanel">
 
         <div class="install-step">
@@ -531,10 +577,8 @@
           </div>
         </div>
 
-      </div><!-- /tab-desktop -->
+      </div>
 
-
-      <!-- ANDROID TAB -->
       <div class="install-panel install-panel--hidden" id="tab-android" role="tabpanel">
 
         <div class="install-subsection">
@@ -590,30 +634,18 @@
                 Find and <strong>Enable</strong> all three of these flags:
               </p>
               <div class="flags-list">
-                <div class="flag-item">
-                  <span class="flag-dot"></span>
-                  <span>Local network access checks</span>
-                  <span class="flag-tag">Enable</span>
-                </div>
-                <div class="flag-item">
-                  <span class="flag-dot"></span>
-                  <span>Local network access checks for WebRTC</span>
-                  <span class="flag-tag">Enable</span>
-                </div>
-                <div class="flag-item">
-                  <span class="flag-dot"></span>
-                  <span>Local network access checks for WebSockets</span>
-                  <span class="flag-tag">Enable</span>
-                </div>
+                <div class="flag-item"><span class="flag-dot"></span><span>Local network access checks</span><span class="flag-tag">Enable</span></div>
+                <div class="flag-item"><span class="flag-dot"></span><span>Local network access checks for WebRTC</span><span class="flag-tag">Enable</span></div>
+                <div class="flag-item"><span class="flag-dot"></span><span>Local network access checks for WebSockets</span><span class="flag-tag">Enable</span></div>
               </div>
               <div class="install-shot-frame" style="margin-top:1.25rem;">
-                <img src="install_android_network.png" alt="Network flags enabled in chrome://flags" class="install-shot-img" loading="lazy" />
+                <img src="install_android_network.png" alt="Network flags enabled" class="install-shot-img" loading="lazy" />
                 <div class="install-shimmer" aria-hidden="true"></div>
               </div>
             </div>
           </div>
 
-        </div><!-- /Part 1 -->
+        </div>
 
         <div class="install-subsection">
           <div class="install-subsection-label">Part 2 — Installing the Extension</div>
@@ -624,7 +656,7 @@
               <h3 class="step-title">Open the Browser Menu</h3>
               <p class="step-desc">Tap the <strong>three dots (⋮)</strong> icon in the top-right corner of the browser.</p>
               <div class="install-shot-frame">
-                <img src="install_android_dots.png" alt="Three dots menu in Quetta browser" class="install-shot-img" loading="lazy" />
+                <img src="install_android_dots.png" alt="Three dots menu" class="install-shot-img" loading="lazy" />
                 <div class="install-shimmer" aria-hidden="true"></div>
               </div>
             </div>
@@ -635,10 +667,6 @@
             <div class="step-body">
               <h3 class="step-title">Tap Settings</h3>
               <p class="step-desc">Select <strong>Settings</strong> from the dropdown menu.</p>
-              <div class="install-shot-frame">
-                <img src="install_android_settings.png" alt="Settings option in browser menu" class="install-shot-img" loading="lazy" />
-                <div class="install-shimmer" aria-hidden="true"></div>
-              </div>
             </div>
           </div>
 
@@ -647,10 +675,6 @@
             <div class="step-body">
               <h3 class="step-title">Tap Extensions</h3>
               <p class="step-desc">Inside Settings, find and tap <strong>Extensions</strong>.</p>
-              <div class="install-shot-frame">
-                <img src="install_android_extensions.png" alt="Extensions option inside Settings" class="install-shot-img" loading="lazy" />
-                <div class="install-shimmer" aria-hidden="true"></div>
-              </div>
             </div>
           </div>
 
@@ -659,10 +683,6 @@
             <div class="step-body">
               <h3 class="step-title">Open Developer Options</h3>
               <p class="step-desc">On the Extensions screen, tap <strong>Developer options</strong>.</p>
-              <div class="install-shot-frame">
-                <img src="install_android_devmode.png" alt="Developer options inside Extensions" class="install-shot-img" loading="lazy" />
-                <div class="install-shimmer" aria-hidden="true"></div>
-              </div>
             </div>
           </div>
 
@@ -675,10 +695,6 @@
                 Cipher extension file you downloaded and select it.
                 <em>No unzipping needed</em> — the browser handles it.
               </p>
-              <div class="install-shot-frame">
-                <img src="install_android_install.png" alt="Install from zip option" class="install-shot-img" loading="lazy" />
-                <div class="install-shimmer" aria-hidden="true"></div>
-              </div>
               <div class="install-note install-note--success">
                 <span>🎉</span>
                 <span>Extension installed. Open any chess site in this browser and Cipher will appear.</span>
@@ -686,7 +702,7 @@
             </div>
           </div>
 
-        </div><!-- /Part 2 -->
+        </div>
 
         <div class="install-subsection">
           <div class="install-subsection-label">Part 3 — Installing the Android App</div>
@@ -696,8 +712,7 @@
             <div class="step-body">
               <h3 class="step-title">Allow Installation from Unknown Sources</h3>
               <p class="step-desc">
-                Go to <strong>Settings → Security</strong> (or <strong>Privacy → Install unknown apps</strong>
-                on newer Android) and enable installs from your file manager or browser.
+                Go to <strong>Settings → Security</strong> and enable installs from your file manager or browser.
               </p>
             </div>
           </div>
@@ -708,34 +723,23 @@
               <h3 class="step-title">Install the APK</h3>
               <p class="step-desc">
                 Tap the downloaded <code>cipher.apk</code> file to install it.
-                Google may show a warning that the app is potentially harmful — this is expected for any
-                sideloaded app that isn't on the Play Store.
               </p>
               <div class="install-note install-note--warn" style="margin-bottom:1rem;">
                 <span>⚠</span>
                 <div>
                   <strong>If you see a "harmful app" prompt:</strong><br/>
-                  Tap the <strong>↓ down-arrow</strong> or <strong>More details</strong> button and choose
+                  Tap the <strong>↓ down-arrow</strong> or <strong>More details</strong> and choose
                   <strong>"Install anyway"</strong>.
-                </div>
-              </div>
-              <div class="install-note install-note--warn">
-                <span>🛡</span>
-                <div>
-                  <strong>Alternative — disable Play Protect:</strong><br/>
-                  Open the Play Store → tap your profile icon → <strong>Play Protect → Settings</strong>
-                  → toggle <strong>Scan apps with Play Protect</strong> off. Install the APK, then
-                  re-enable it afterwards.
                 </div>
               </div>
             </div>
           </div>
 
-        </div><!-- /Part 3 -->
+        </div>
 
-      </div><!-- /tab-android -->
+      </div>
 
-    </div><!-- /container -->
+    </div>
   </section>
 
   <!-- DISCLAIMER FOOTER -->
@@ -777,6 +781,45 @@
     <span class="toast-icon">⏳</span>
     <span id="toastMsg">Download starting…</span>
   </div>
+
+  <!-- Scroll to Top button -->
+  <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
+
+  <!-- BOTTOM NAVIGATION -->
+  <nav class="bottom-nav" id="bottomNav" aria-label="Bottom navigation">
+    <a href="#hero"        class="bottom-nav-item" data-section="hero">
+      <span class="bottom-nav-icon">♔</span>
+      <span class="bottom-nav-label">Home</span>
+    </a>
+    <a href="#about"       class="bottom-nav-item" data-section="about">
+      <span class="bottom-nav-icon">📖</span>
+      <span class="bottom-nav-label">About</span>
+    </a>
+    <a href="#features"    class="bottom-nav-item" data-section="features">
+      <span class="bottom-nav-icon">⚡</span>
+      <span class="bottom-nav-label">Features</span>
+    </a>
+    <a href="#screenshots" class="bottom-nav-item" data-section="screenshots">
+      <span class="bottom-nav-icon">🖥️</span>
+      <span class="bottom-nav-label">Screenshots</span>
+    </a>
+    <a href="#download"    class="bottom-nav-item" data-section="download">
+      <span class="bottom-nav-icon">↓</span>
+      <span class="bottom-nav-label">Download</span>
+    </a>
+    <a href="#extension"   class="bottom-nav-item" data-section="extension">
+      <span class="bottom-nav-icon">🧩</span>
+      <span class="bottom-nav-label">Extension</span>
+    </a>
+    <a href="#install"     class="bottom-nav-item" data-section="install">
+      <span class="bottom-nav-icon">📋</span>
+      <span class="bottom-nav-label">Install</span>
+    </a>
+  </nav>
 
   <script src="script.js"></script>
 </body>
