@@ -169,6 +169,7 @@ img { max-width: 100%; display: block; }
 }
 .btn-hire-me:hover .x-logo { transform: rotate(5deg) scale(1.1); }
 
+/* FIX 1: nav-cta hidden on tablet and below — hire-me always shows full text */
 .nav-cta {
   font-family: var(--font-main);
   font-weight: 700;
@@ -677,7 +678,7 @@ blockquote em { color: var(--cyan); font-style: normal; }
   position: absolute; top: -1px; left: 2rem;
   font-family: var(--font-main); font-weight: 700; font-size: 0.68rem;
   letter-spacing: 0.1em; text-transform: uppercase;
-  color: #0f0f0f; background: #ff8a00;  /* changed to orange */
+  color: #0f0f0f; background: #ff8a00;
   padding: 0.25rem 0.75rem; border-radius: 0 0 8px 8px;
 }
 .android-browser-content { display: flex; gap: 1.5rem; align-items: flex-start; margin-top: 1rem; }
@@ -685,8 +686,7 @@ blockquote em { color: var(--cyan); font-style: normal; }
 .kiwi-icon svg { width: 100%; height: 100%; }
 .android-browser-content h4 {
   font-family: var(--font-main); font-size: 1rem; font-weight: 700;
-  margin-bottom: 0.5rem;
-  color: #ff8a00;  /* changed to orange */
+  margin-bottom: 0.5rem; color: #ff8a00;
 }
 .android-browser-content p { font-size: 0.9rem; color: var(--muted-card); line-height: 1.75; margin-bottom: 0.75rem; }
 .android-browser-content strong { color: var(--white); font-weight: 600; }
@@ -696,11 +696,7 @@ blockquote em { color: var(--cyan); font-style: normal; }
   font-family: var(--font-main); font-weight: 400; font-size: 0.8rem;
   color: var(--muted-card); gap: 0.5rem;
 }
-.kiwi-step::before {
-  content: '▸';
-  color: #ff8a00;  /* changed to orange */
-  flex-shrink: 0;
-}
+.kiwi-step::before { content: '▸'; color: #ff8a00; flex-shrink: 0; }
 
 /* ── Disclaimer banner ── */
 .disclaimer-banner { position: relative; z-index: 1; padding: 3rem 2rem; background: rgba(239,68,68,0.1); }
@@ -942,15 +938,19 @@ blockquote em { color: var(--cyan); font-style: normal; }
   to   { opacity: 1; transform: translateY(0) rotate(0deg); }
 }
 
-/* ── Responsive ── */
+/* ══════════════════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════════════════ */
+
+/* ── Tablet and below (≤1024px): hide nav-cta, keep hire-me full ── */
 @media (max-width: 1024px) {
   .features-grid { grid-template-columns: repeat(2, 1fr); }
   .nav-coach-label { display: none; }
+  /* FIX 1: hide redundant "Get Cipher" button on tablet/mobile — bottom nav + Download section covers it */
+  .nav-cta { display: none; }
 }
-@media (max-width: 1024px) and (min-width: 769px) {
-  .screenshots-grid { grid-template-columns: 1.72fr 1fr; gap: 1.5rem; }
-  .screenshot-card--android { max-width: 280px; }
-}
+
+/* ── Mobile (≤768px) ── */
 @media (max-width: 768px) {
   .nav-links { display: none; }
   .story-grid { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -969,13 +969,15 @@ blockquote em { color: var(--cyan); font-style: normal; }
   .footer-inner { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
   .hero-title { font-size: 2rem; }
   .screenshots-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-  .screenshot-card--android { max-width: 100%; border-radius: 24px; max-height: 70vh; }
+  /* NOTE: max-height intentionally NOT applied to .screenshot-card--android here —
+     the video section overrides below need a clean slate */
+  .screenshot-card--android { max-width: 100%; border-radius: 24px; }
   .screenshot-frame--android { aspect-ratio: 9 / 16; }
   .screenshots-stats { flex-direction: column; gap: 1.5rem; padding: 2rem 1.5rem; }
   .stat-divider { width: 40px; height: 1px; margin: 0; }
-  .btn-hire-me span { display: none; }
-  .btn-hire-me { padding: 0.48rem 0.7rem; }
+  /* FIX 1: hire-me always shows full (X logo + text) — no overrides needed here */
 }
+
 @media (max-width: 480px) {
   .section { padding: 70px 1.25rem; }
   .hero { padding: 110px 1.25rem 70px; }
@@ -984,57 +986,38 @@ blockquote em { color: var(--cyan); font-style: normal; }
   .bottom-nav-label { font-size: 0.52rem; }
 }
 
-/* ===== ChatGPT requested changes ===== */
-
-/* Large screens: title/writeup on top, screenshots in 3-column layout underneath */
-@media (min-width: 900px){
-  .screenshots-header{
-    max-width:100%;
-    text-align:center;
-    margin-bottom:2rem;
+/* ── Large screens: screenshots header centered, 3-col layout ── */
+@media (min-width: 900px) {
+  .screenshots-header {
+    max-width: 100%;
+    text-align: center;
+    margin-bottom: 2rem;
   }
-  .screenshots-grid{
-    grid-template-columns:repeat(3,1fr);
-    align-items:start;
+  .screenshots-grid {
+    grid-template-columns: repeat(3, 1fr);
+    align-items: start;
   }
-  .screenshot-card--desktop{
-    grid-column:span 2;
-  }
-  .screenshot-card--android{
-    grid-column:span 1;
-    max-width:none;
-    width:100%;
+  .screenshot-card--desktop { grid-column: span 2; }
+  .screenshot-card--android {
+    grid-column: span 1;
+    max-width: none;
+    width: 100%;
   }
 }
 
-/* Tablet */
-@media (min-width:768px) and (max-width:899px){
-  .screenshots-grid{
-    grid-template-columns:repeat(3,1fr);
-  }
-  .screenshot-card--desktop{
-    grid-column:span 2;
-  }
-  .screenshot-card--android{
-    grid-column:span 1;
-    max-width:none;
-  }
+/* ── Tablet landscape (768–899px) ── */
+@media (min-width: 768px) and (max-width: 899px) {
+  .screenshots-grid { grid-template-columns: repeat(3, 1fr); }
+  .screenshot-card--desktop { grid-column: span 2; }
+  .screenshot-card--android { grid-column: span 1; max-width: none; }
 }
 
-/* Quetta branding */
-.android-browser-badge{
-  background:#ff8a00;
-}
-.android-browser-content h4{
-  color:#ff8a00;
-}
-.kiwi-step::before{
-  color:#ff8a00;
-}
+/* ── Quetta branding (already in original, kept here for clarity) ── */
+.android-browser-badge { background: #ff8a00; }
+.android-browser-content h4 { color: #ff8a00; }
+.kiwi-step::before { color: #ff8a00; }
 
-/* --------------------------------------------
-   Install shot frames — Desktop vs Android
-   -------------------------------------------- */
+/* ── Install shot frames — Desktop vs Android ── */
 
 /* Desktop tab: always full width, limited height */
 #tab-desktop .install-shot-frame {
@@ -1048,12 +1031,7 @@ blockquote em { color: var(--cyan); font-style: normal; }
   display: block;
 }
 
-/* Android tab – default (mobile) remains as is */
-#tab-android .install-shot-frame {
-  /* no change for small screens */
-}
-
-/* iPad-sized tablets (768px – 1024px) */
+/* Android tab — iPad sized (768–1024px) */
 @media (min-width: 768px) and (max-width: 1024px) {
   #tab-android .install-shot-frame {
     width: 70%;
@@ -1069,7 +1047,7 @@ blockquote em { color: var(--cyan); font-style: normal; }
   }
 }
 
-/* PC and large tablets (above 1024px) */
+/* Android tab — PC and large tablets (>1024px) */
 @media (min-width: 1025px) {
   #tab-android .install-shot-frame {
     width: 50%;
@@ -1089,7 +1067,6 @@ blockquote em { color: var(--cyan); font-style: normal; }
 /* ── Video Section Grid ── */
 .video-grid {
   display: flex;
-  grid-template-columns: 1fr 1fr;
   gap: 2rem;
   align-items: start;
 }
@@ -1100,20 +1077,17 @@ blockquote em { color: var(--cyan); font-style: normal; }
     grid-template-columns: 1fr;
   }
 
+  /* FIX 2: video section android card must NOT be height-clipped on mobile */
   .video-section .screenshot-card--android {
     max-width: 340px;
     margin: 0 auto;
     width: 100%;
+    max-height: none; /* override any inherited max-height */
   }
 }
 
-.video-section .screenshot-card--android {
-  max-width: none;
-}
-
-.video-section .screenshot-card--desktop {
-  max-width: none;
-}
+.video-section .screenshot-card--android { max-width: none; }
+.video-section .screenshot-card--desktop { max-width: none; }
 
 /* ═══════════════════════════════════════════════════
    LIGHTBOX MODAL for Android installation screenshots
@@ -1121,10 +1095,8 @@ blockquote em { color: var(--cyan); font-style: normal; }
 
 .lightbox-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
   background: rgba(0, 0, 0, 0.88);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -1135,99 +1107,63 @@ blockquote em { color: var(--cyan); font-style: normal; }
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
-  padding: 5vh 5vw; /* padding on all sides */
+  padding: 5vh 5vw;
   box-sizing: border-box;
 }
-
 .lightbox-overlay.active {
   opacity: 1;
   visibility: visible;
 }
-
 .lightbox-content {
   position: relative;
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 100%; max-height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   animation: lightboxFadeIn 0.3s ease;
 }
-
 .lightbox-content img {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
+  max-width: 100%; max-height: 100%;
+  width: auto; height: auto;
   object-fit: contain;
   border-radius: 8px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-  background: #1a1a1a; /* fallback */
+  background: #1a1a1a;
   display: block;
 }
-
 .lightbox-close {
   position: absolute;
-  top: 16px;
-  right: 20px;
+  top: 16px; right: 20px;
   background: rgba(255, 255, 255, 0.15);
-  border: none;
-  color: #fff;
-  font-size: 2rem;
-  line-height: 1;
-  width: 48px;
-  height: 48px;
+  border: none; color: #fff;
+  font-size: 2rem; line-height: 1;
+  width: 48px; height: 48px;
   border-radius: 50%;
   cursor: pointer;
   transition: background 0.2s, transform 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   font-weight: 300;
   backdrop-filter: blur(4px);
 }
-
-.lightbox-close:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: scale(1.1);
-}
-
-.lightbox-close:active {
-  transform: scale(0.9);
-}
+.lightbox-close:hover { background: rgba(255, 255, 255, 0.3); transform: scale(1.1); }
+.lightbox-close:active { transform: scale(0.9); }
 
 @keyframes lightboxFadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
 }
 
-/* Optional: add a subtle zoom indicator on Android screenshots */
+/* Zoom cursor hint on Android install frames */
 #tab-android .install-shot-frame {
   cursor: pointer;
   transition: box-shadow 0.25s, transform 0.25s;
 }
-
 #tab-android .install-shot-frame:hover {
   box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.3), 0 8px 30px rgba(0, 0, 0, 0.2);
   transform: scale(1.01);
 }
 
-/* Make sure the modal works well on small screens */
 @media (max-width: 480px) {
-  .lightbox-overlay {
-    padding: 3vh 3vw;
-  }
-  .lightbox-close {
-    top: 10px;
-    right: 12px;
-    width: 40px;
-    height: 40px;
-    font-size: 1.6rem;
-  }
+  .lightbox-overlay { padding: 3vh 3vw; }
+  .lightbox-close { top: 10px; right: 12px; width: 40px; height: 40px; font-size: 1.6rem; }
 }
