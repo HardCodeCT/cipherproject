@@ -1088,7 +1088,7 @@ blockquote em { color: var(--cyan); font-style: normal; }
 
 /* ── Video Section Grid ── */
 .video-grid {
-  display: grid;
+  display: flex;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
   align-items: start;
@@ -1096,6 +1096,7 @@ blockquote em { color: var(--cyan); font-style: normal; }
 
 @media (max-width: 768px) {
   .video-grid {
+    display: grid;
     grid-template-columns: 1fr;
   }
 
