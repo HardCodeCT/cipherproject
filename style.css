@@ -1073,7 +1073,6 @@ blockquote em { color: var(--cyan); font-style: normal; }
 @media (min-width: 1025px) {
   #tab-android .install-shot-frame {
     width: 50%;
-    max-height: 300px;
     margin-left: auto;
     margin-right: auto;
     overflow: hidden;
