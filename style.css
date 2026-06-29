@@ -697,6 +697,8 @@ blockquote em { color: var(--cyan); font-style: normal; }
   color: white; gap: 0.5rem;
 }
 .kiwi-step::before { content: '▸'; color: #ff8a00; flex-shrink: 0; }
+.btn-kiwi-dl { color: #00b4d8; background: rgba(0,180,216,0.10); border: 1px solid rgba(0,180,216,0.35); border-radius: var(--radius); padding: 0.55rem 1.25rem; font-family: var(--font-main); font-weight: 600; font-size: 0.85rem; text-decoration: none; transition: background 0.2s, color 0.2s; }
+.btn-kiwi-dl:hover { background: #00b4d8; color: #0f0f0f; }
 
 /* ── Disclaimer banner ── */
 .disclaimer-banner { position: relative; z-index: 1; padding: 3rem 2rem; background: rgba(239,68,68,0.1); }
