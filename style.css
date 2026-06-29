@@ -1251,7 +1251,7 @@ blockquote em { color: var(--cyan); font-style: normal; }
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: var(--text-muted, #888);
+  color: #fff;
   margin: 0 0 0.65rem;
 }
 
@@ -1301,11 +1301,11 @@ blockquote em { color: var(--cyan); font-style: normal; }
 }
 .dl-btn-detail {
   font-size: 0.75rem;
-  color: var(--text-muted, #888);
+  color: #fff;
 }
 .dl-btn-size {
   font-size: 0.72rem;
-  color: var(--text-muted, #888);
+  color: #fff;
   margin-top: auto;
 }
 
@@ -1333,7 +1333,7 @@ blockquote em { color: var(--cyan); font-style: normal; }
 .unsure-text {
   flex: 1;
   font-size: 0.8rem;
-  color: var(--text-muted, #888);
+  color: #fff;
   margin: 0;
   line-height: 1.5;
   min-width: 180px;
