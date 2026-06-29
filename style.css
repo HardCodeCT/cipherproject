@@ -1225,7 +1225,7 @@ blockquote em { color: var(--cyan); font-style: normal; }
 
 .kiwi-desc {
   font-size: 0.88rem;
-  color: var(--text-secondary, #aaa);
+  color: #fff;
   margin: 0 0 1rem;
   line-height: 1.6;
 }
@@ -1240,7 +1240,7 @@ blockquote em { color: var(--cyan); font-style: normal; }
   border-radius: 8px;
   padding: 0.75rem 1rem;
   font-size: 0.82rem;
-  color: var(--text-secondary, #aaa);
+  color: #fff;
   margin-bottom: 1.25rem;
   line-height: 1.55;
 }
