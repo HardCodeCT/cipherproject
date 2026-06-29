@@ -498,28 +498,44 @@
         </div>
 
         <!-- Kiwi Browser card -->
-        <div class="android-browser-card" style="margin-top:2rem;">
-          <div class="android-browser-badge" style="background:#00b4d8;color:#0f0f0f;">Also Supported</div>
-          <div class="android-browser-content">
-            <div class="kiwi-icon" aria-label="Kiwi Browser">
-              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="24" cy="24" r="22" stroke="#00b4d8" stroke-width="2" fill="none"/>
-                <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-size="22" fill="#00b4d8" font-family="serif">K</text>
-              </svg>
-            </div>
-            <div>
-              <h4 style="color:#00b4d8;">Kiwi Browser</h4>
-              <p>Another solid Chromium-based Android browser with full extension support. Install the CiPHER extension directly in Kiwi Browser to get real-time engine overlays on mobile chess sites.</p>
-              <div class="kiwi-steps">
-                <span class="kiwi-step" style="--step-color:#00b4d8;">1. Download Kiwi Browser via the button below</span>
-                <span class="kiwi-step" style="--step-color:#00b4d8;">2. Open the CiPHER extension link in Kiwi Browser</span>
-                <span class="kiwi-step" style="--step-color:#00b4d8;">3. Tap "Add Extension" and start training</span>
+        <div class="kiwi-card">
+          <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:1rem;">
+            <div class="kiwi-header" style="margin-bottom:0;">
+              <div class="kiwi-logo-circle">K</div>
+              <div>
+                <p class="kiwi-title">Kiwi Browser</p>
+                <p class="kiwi-sub">Also supported — full extension support on Android</p>
               </div>
-              <a href="https://dw.uptodown.com/dwn/c6HuDGO2Li40_eEFOivSQJ_WBPCCMl-DEUhsyE8jTHKpSQKeqtVdCwqmy1JWjvl1kCBvehc6wFHZO39e4NKTISB9SLMnnzHlcQgVwmHDaXNjhXd-6Q5oWyQzMgotjPaI/059MfqM5ms1mq-RPIxKI9RCW5vF1_fNbFrmDEuQxWGECPYSZvVawO_Lk-r9YMn2NZIk2GvK0dua_ACVwOLth75oenYceDY9vvEGNc3aM0SBk3otP6tbOkenhezvVG3lO/2TltIrly2wGdofKJcBE8cloFqXHsIuevNhmYWUPEAJOQg_rHAX8bFL01hpAf1I6euUvBDFH7lsbLasYjHXsaYida5qAbh0InTO5ZvqF1Ytk=/" class="btn-download btn-kiwi-dl" style="display:inline-flex;margin-top:1rem;align-items:center;gap:0.5rem;">
-                <span>Download Kiwi Browser</span>
-                <span class="dl-arrow">↓</span>
-              </a>
             </div>
+            <span class="kiwi-badge">Also supported</span>
+          </div>
+          <p class="kiwi-desc">A solid Chromium-based Android browser with full extension support. Install the CiPHER extension directly in Kiwi Browser to get real-time engine overlays on mobile chess sites.</p>
+          <div class="notice">
+            <i class="ti ti-info-circle" aria-hidden="true"></i>
+            <span>Kiwi Browser is not on the Play Store. Download the APK directly. Enable <strong>Install from unknown sources</strong> in Settings → Security before installing.</span>
+          </div>
+          <p class="arch-label">Choose your device architecture</p>
+          <div class="btn-grid">
+            <a href="https://github.com/kiwibrowser/src.next/releases/download/14310011181/com.kiwibrowser.browser-arm64-14310011181-github.apk" class="dl-btn primary" target="_blank" rel="noopener">
+              <span class="dl-btn-arch"><i class="ti ti-download" aria-hidden="true"></i> ARM 64-bit <span class="badge-rec">most devices</span></span>
+              <span class="dl-btn-detail">Android 8.0+ · modern phones</span>
+              <span class="dl-btn-size">233 MB</span>
+            </a>
+            <a href="https://github.com/kiwibrowser/src.next/releases/download/14310011181/com.kiwibrowser.browser-arm-14310011181-github.apk" class="dl-btn" target="_blank" rel="noopener">
+              <span class="dl-btn-arch"><i class="ti ti-download" aria-hidden="true"></i> ARM 32-bit</span>
+              <span class="dl-btn-detail">Older / budget devices</span>
+              <span class="dl-btn-size">178 MB</span>
+            </a>
+            <a href="https://github.com/kiwibrowser/src.next/releases/download/14310011181/com.kiwibrowser.browser-x64-14310011181-github.apk" class="dl-btn" target="_blank" rel="noopener">
+              <span class="dl-btn-arch"><i class="ti ti-download" aria-hidden="true"></i> x86_64</span>
+              <span class="dl-btn-detail">Intel-based Android tablets</span>
+              <span class="dl-btn-size">235 MB</span>
+            </a>
+          </div>
+          <div class="unsure-strip">
+            <i class="ti ti-device-mobile-question" aria-hidden="true" style="font-size:20px; color:var(--text-muted); flex-shrink:0;"></i>
+            <p class="unsure-text">Not sure which to pick? <strong>ARM 64-bit works on almost all modern Android phones.</strong> If it fails to install, try ARM 32-bit next — at least one will work on your device.</p>
+            <button class="unsure-btn" onclick="sendPrompt('How do I check my Android device architecture to know which Kiwi Browser APK to download?')">How to check ↗</button>
           </div>
         </div>
       </div>
